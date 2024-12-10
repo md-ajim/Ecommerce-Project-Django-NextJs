@@ -13,7 +13,7 @@ A modern, scalable, and SEO-friendly e-commerce platform built with **Django RES
 - **API-Driven Backend**: Robust and secure API layer powered by **Django REST Framework**.
 - **Relational Database**: Data persistence with **MySQL**, optimized for large datasets.
 
-## Tech Stack
+## Tech Stack 
 - **Frontend**:
   - **Next.js** (React framework)
   - **Tailwind CSS** (for styling)
