@@ -25,7 +25,7 @@ A modern, scalable, and SEO-friendly e-commerce platform built with **Django RES
   - **MySQL** (relational database)
   
 ## Prerequisites
-Before setting up the project locally, ensure you have the following:
+Before setting up the project locally, ensure you have the following: 
 - Python 3.x or above
 - Node.js and npm/yarn installed
 - MySQL database running locally or remotely
