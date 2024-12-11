@@ -7,6 +7,7 @@ import { HeartIcon } from "../favorite/heartIcon";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Favorites from "../favorite/wish";
+import {Pagination} from "@nextui-org/react"
 import AlertMassage from "../../alert/alertMassage";
 export default function Products(props) {
   const router = useRouter();
@@ -198,6 +199,8 @@ export default function Products(props) {
           </div>
         ))}
       </div>
+
+      <Pagination className="  container flex justify-center items-center mt-10 " isCompact showControls initialPage={1} total={10} />;
     </>
   );
 }
