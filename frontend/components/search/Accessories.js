@@ -9,11 +9,8 @@ import Shoes from "@/components/product/product category/Shoes";
 import Clothing from "@/components/product/product category/Clothing";
 import Accessories from "@/components/product/product category/Accessories";
 
-
-
 import { Button } from "@nextui-org/react";
 import { useState, useEffect } from "react";
-
 
 import { useRouter } from "next/router";
 export default function Accessories() {
@@ -29,7 +26,6 @@ export default function Accessories() {
   const [isShoes, setIsShoes] = useState(false);
   const [isClothing, setIsClothing] = useState(false);
   const [isAccessories, setIsAccessories] = useState(false);
-
 
   const toggleAll = () => {
     setIsAll(!isAll);
@@ -133,13 +129,6 @@ export default function Accessories() {
     setIsClothing(false);
   };
 
-
-
-
-
-
-
-
   return (
     <section>
       <div className="container mx-auto">
@@ -149,38 +138,60 @@ export default function Accessories() {
               <span className="text-sm  text-gray-500 ">Collections</span>
 
               <ul>
-                <li className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleAll()}>
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleAll()}
+                >
                   <Link href="all">All</Link>
                 </li>
-                <li  className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleBags()} >
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleBags()}
+                >
                   <Link href="bags">Bags</Link>
                 </li>
-                <li  className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleDrinkwater()} >
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleDrinkwater()}
+                >
                   <Link href="drinkwater">Drinkwater</Link>
                 </li>
-                <li  className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleElectronics()}>
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleElectronics()}
+                >
                   <Link href="electronics">Electronics</Link>
                 </li>
-                <li  className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleFootware()}>
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleFootware()}
+                >
                   <Link href="footware">Footware</Link>
                 </li>
-                <li  className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleHeadwear()}>
-                  <Link  href="headwear">Headwear</Link>
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleHeadwear()}
+                >
+                  <Link href="headwear">Headwear</Link>
                 </li>
-                <li className="cursor-pointer hover:underline hover:text-indigo-600" onClick={()=>toggleClothing ()}   >
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleClothing()}
+                >
                   <Link href="clothing">Clothing</Link>
                 </li>
-                <li className="cursor-pointer hover:underline hover:text-indigo-600" onClick={()=>toggleAccessories()} >
-                  <Link href="accessories">Accessories
-                  </Link>
-                </li> 
-                <li className="cursor-pointer hover:underline hover:text-indigo-600" onClick={() => toggleShoes()} >
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleAccessories()}
+                >
+                  <Link href="accessories">Accessories</Link>
+                </li>
+                <li
+                  className="cursor-pointer hover:underline hover:text-indigo-600"
+                  onClick={() => toggleShoes()}
+                >
                   <Link href="shoes">Shoes</Link>
                 </li>
-
-        
-
-
               </ul>
             </div>
           </div>

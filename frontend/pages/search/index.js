@@ -119,20 +119,7 @@ export default function ProductAll({ products }) {
     );
   };
 
-  // const handleMinPriceChange = (e) => {
-  //   setMinPrice(e.target.value);
-  //   router.push(`?category=${category}&color=${colors}&size=${sizes}&min_price=${e.target.value}`);
-  // };
 
-  // const handleMaxPriceChange = (e) => {
-  //   setMaxPrice(e.target.value);
-  //   router.push(`?category=${category}&color=${colors}&size=${sizes}&min_price=${minPrice}&max_price=${e.target.value}`);
-  // };
-
-  // const handleOrderingChange = (e) => {
-  //   setOrdering(e.target.value);
-  //   router.push(`?category=${category}&color=${colors}&size=${sizes}&min_price=${minPrice}&max_price=${maxPrice}&ordering=${e.target.value}`);
-  // };
 
   const handleSortChange = (e) => {
     console.log(e.target.value, "e.target.value,");
@@ -227,12 +214,7 @@ export default function ProductAll({ products }) {
                 >
                   T-Shirt
                 </li>
-                {/* <li
-                  className="cursor-pointer hover:underline hover:text-indigo-600"
-                  onClick={() => handleCategoryClick("Electronics")}
-                >
-                  Electronics
-                </li> */}
+             
                 <li
                   className="cursor-pointer hover:underline hover:text-indigo-600"
                   onClick={() => handleCategoryClick("Footwear")}
@@ -357,7 +339,7 @@ export default function ProductAll({ products }) {
             {searchResults ? (
               <SearchResult searchData={search} />
             ) : (
-              <Products products={products?.results} />
+              <Products products={products} />
             )}
           </div>
 

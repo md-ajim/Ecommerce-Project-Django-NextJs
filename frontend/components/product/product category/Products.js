@@ -1,4 +1,5 @@
-import { Button } from "@nextui-org/react";
+
+import React from "react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -7,7 +8,7 @@ import { HeartIcon } from "../favorite/heartIcon";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Favorites from "../favorite/wish";
-import {Pagination} from "@nextui-org/react"
+import { Pagination, Button } from "@nextui-org/react";
 import AlertMassage from "../../alert/alertMassage";
 export default function Products(props) {
   const router = useRouter();
@@ -16,6 +17,9 @@ export default function Products(props) {
   const [favoriteId, setFavoriteId] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFavoriteAlertAlready, setIsFavoriteAlertAlready] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3; // Number of items per page
+  const totalPages = Math.ceil(props.products.results.length / itemsPerPage);
   const [alerts, setAlerts] = useState(null); // Store the alerts returned by AlertMassage
   useEffect(() => {
     const get_favorite = async () => {
@@ -65,7 +69,6 @@ export default function Products(props) {
     };
 
     if (!favoriteId.includes(Product)) {
-
       // alert("Added to favorites");
       try {
         const response = await axios
@@ -96,19 +99,21 @@ export default function Products(props) {
     }
   };
 
-
-
   useEffect(() => {
     const loadAlerts = async () => {
-      const alertMessages = await AlertMassage({ setIsFavorite, setIsFavoriteAlertAlready });
+      const alertMessages = await AlertMassage({
+        setIsFavorite,
+        setIsFavoriteAlertAlready,
+      });
       setAlerts(alertMessages);
     };
 
     loadAlerts();
+
+
   }, [setIsFavorite, setIsFavoriteAlertAlready]);
 
   const interval = setInterval(() => {
-
     if (isFavorite) {
       setIsFavorite(false);
       window.location.reload();
@@ -118,21 +123,36 @@ export default function Products(props) {
       window.location.reload();
     }
     clearInterval(interval);
-
   }, 3000);
+
+  const onNext = () => {
+    setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+  };
+
+  const onPrevious = () => {
+    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+  // Get the current page's data
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = props?.products?.results.slice(startIndex, endIndex);
+
+
+
+  console.log(totalPages, "totalPages");
+  console.log(currentPage, "currentPage");
+  console.log(startIndex, "startIndex", endIndex , "endIndex");
+  console.log(currentData, "currentData");
+  console.log(props.products.results, "props.products.results");
 
 
   return (
-
     <>
       {alerts && isFavorite && alerts.favoritesAlertAdd}
       {alerts && isFavoriteAlertAlready && alerts.favoritesAlertAlready}
 
-
-
       <div className=" grid grid-cols-1 md:grid-cols-3 gap-4 md:pt-4">
-
-        {props?.products?.map((i) => (
+        {currentData?.map((i) => (
           <div
             key={i}
             onClick={() =>
@@ -158,15 +178,15 @@ export default function Products(props) {
                     e.stopPropagation(); // Prevents parent click event
                     session
                       ? handleClickFavorite({
-                        Product: i?.id,
-                        Product_Name: i?.product_card_name,
-                        Product_Image: i?.product_image,
-                        Product_url: i?.product_url,
-                        Stock_Status: i?.stock_quantity,
-                        Discount_Price: i?.discount_price,
-                        Product_Price: i?.price,
-                      })
-                      : router.push("form/signIn");; // Pass the correct product ID
+                          Product: i?.id,
+                          Product_Name: i?.product_card_name,
+                          Product_Image: i?.product_image,
+                          Product_url: i?.product_url,
+                          Stock_Status: i?.stock_quantity,
+                          Discount_Price: i?.discount_price,
+                          Product_Price: i?.price,
+                        })
+                      : router.push("form/signIn"); // Pass the correct product ID
                   }}
                   isIconOnly
                   color="danger"
@@ -200,7 +220,20 @@ export default function Products(props) {
         ))}
       </div>
 
-      <Pagination className="  container flex justify-center items-center mt-10 " isCompact showControls initialPage={1} total={10} />;
+      <div className="container md:flex justify-center items-center mt-10  gap-2 flex-wrap justify-items-center md:space-y-0  space-y-1  ">
+        <Button color="secondary" size="sm" variant="flat" onPress={onPrevious}>
+          Previous
+        </Button>
+        <Pagination
+          page={currentPage}
+          onChange={(page) => setCurrentPage(page)}
+          isCompact
+          total={totalPages}
+        />
+        <Button color="secondary" size="sm" variant="flat" onPress={onNext}>
+          Next
+        </Button>
+      </div>
     </>
   );
 }

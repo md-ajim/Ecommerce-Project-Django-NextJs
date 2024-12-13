@@ -37,7 +37,7 @@ export default function Navbar() {
       },
       0
     );
-    // setTotalPrice(calculatedTotalPrice.toFixed(2));
+
 
 
 

@@ -1,58 +1,5 @@
 
 
-
-
-
-// import Stripe from "stripe";
-
-// const stripe = Stripe("sk_test_51QJquZ13Cc4xkRIKyPvv0lnJX4F0dQfScdm7hrW3kAMtdwpCiEXoVaD7jIKUZeTYEfACSxdK8lKx0UKzUBYAeBPg00Zbihzwup");
-
-// const host = process.env.NEXT_PUBLIC_HOST;
-
-// export default async function handler(req, res) {
-//   const { method, body } = req;
-
-//   if (method === "POST") {
-//     try {
-//       const { shipping_id, orderId, amount } = body;
-//       const session = await stripe.checkout.sessions.create({
-//         payment_method_types: ["card"],
-//         line_items: [
-          
-//           {
-//             price_data: {
-//               currency: "usd",
-//               product_data: {
-           
-//                 name: `Order ${orderId}`,
-//                 images : [
-
-//                   'https://th.bing.com/th/id/R.8fdb5f4623f7cd118e472a7c713b6652?rik=4J4EDPZ6dPiZWw&pid=ImgRaw&r=0'
-
-//                 ]
-//               },
-//               unit_amount: amount * 100, // Convert to cents
-//             },
-//             quantity: 1,
-//           },
-//         ],
-//         mode: "payment",
-//         success_url: `${host}/checkout?session_id={CHECKOUT_SESSION_ID}&order_id=${orderId}&total_price=${amount}&shipping_id=${shipping_id}`,
-//         cancel_url: `${host}/checkout`,
-//       });
-
-//       res.status(200).json({sessionId: session.id});
-//     } catch (err) {
-//       console.error("Error creating Stripe session:", err);
-//       res.status(500).json({ error: "Error creating Stripe session" });
-//     }
-//   } else {
-//     res.status(405).json({ error: "Method Not Allowed" });
-//   }
-// }
-
-
-
 import Stripe from "stripe";
 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);

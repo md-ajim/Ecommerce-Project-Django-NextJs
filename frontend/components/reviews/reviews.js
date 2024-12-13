@@ -6,48 +6,42 @@ import Router, { useRouter } from "next/router";
 
 import axios from "axios";
 
-
-
 const ReviewSection = ({ product, product_details, colorAndSize }) => {
   const { data: session } = useSession();
   const [user, setUser] = useState({});
   const [rating, setRating] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [reviews_data, setReviews_data] = useState([]);
-  const  router = useRouter();
+  const router = useRouter();
 
   const [form, setForm] = useState({
     review: "",
   });
 
   useEffect(() => {
-
-
     const getUser = async () => {
-
       try {
-
-        const response = await axios.get(`http://127.0.0.1:8000/api/users/${session.user.user_id}`, {
-          headers: {
-            Authorization: `Bearer ${session?.accessToken}`,
-          },
-        })
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/users/${session.user.user_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${session?.accessToken}`,
+            },
+          }
+        );
 
         setUser(response.data);
-
-
-      }
-      catch (err) {
+      } catch (err) {
         console.log(err);
       }
-
-    }
-
+    };
 
     const getUserAndReviews = async () => {
       try {
         // Fetch reviews
-        const reviewResponse = await axios.get(`http://127.0.0.1:8000/api/product-reviews/`)
+        const reviewResponse = await axios.get(
+          `http://127.0.0.1:8000/api/product-reviews/`
+        );
         console.log(reviewResponse, "reviewResponse");
 
         // Filter reviews by product
@@ -55,58 +49,20 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
           (item) => item.product === product.id
         );
 
-        setReviews_data(filterProduct)
-
-        // // Map user IDs from filtered reviews
-        // const filterIds = filterProduct.map((item) => item.user);
-
-        // // Filter users by IDs
-        // const filteredUsers = userResponse?.data?.results?.filter((item) =>
-        //   filterIds.includes(item.id) // Ensure this checks the correct field
-        // );
-
-        // const arr = []
-
-
-
-        // for (let i = 0; i < filteredUsers.length; i++) {
-        //   for (let j = 0; j < filterProduct.length; j++) {
-        //     if (filteredUsers[i].id === filterProduct[j].user) {
-        //       arr.push({
-        //         image: filteredUsers[i].profile_image,
-        //         username: filteredUsers[i].username,
-        //         rating: filterProduct[j].rating,
-        //         comment: filterProduct[j].comment,
-        //         date: convertToBangladeshTime(filterProduct[j].created_at)
-        //       });
-        //     }
-        //   }
-        // }
-
-        // setReviews_data(arr)
-
-
-
-        // console.log(filteredUsers, "filteredUsers");
+        setReviews_data(filterProduct);
       } catch (error) {
         console.error(error, "error-fetching-data");
       }
     };
 
- 
-      getUserAndReviews();
-      if (session) {
-        getUser();
-      }
-
+    getUserAndReviews();
+    if (session) {
+      getUser();
+    }
   }, [session, product]);
 
-
-
-
-  console.log(reviews_data, 'reviews_data')
-  console.log(user, 'user')
-
+  console.log(reviews_data, "reviews_data");
+  console.log(user, "user");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -118,16 +74,15 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
     e.preventDefault();
     console.log("Submitted Review:", { ...form, rating });
     if (session) {
-          // Handle form submission logic here (e.g., API call)
-    const data = {
-      rating: rating,
-      comment: form.review,
-      profile_names: user.username,
-      user_profilePic: user.profile_image,
-      product: product.id,
-      user: session.user.user_id,
-    };
-
+      // Handle form submission logic here (e.g., API call)
+      const data = {
+        rating: rating,
+        comment: form.review,
+        profile_names: user.username,
+        user_profilePic: user.profile_image,
+        product: product.id,
+        user: session.user.user_id,
+      };
 
       try {
         const response = await axios.post(
@@ -143,35 +98,23 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
         console.log(response.data, "response.data");
       } catch (error) {
         console.error(error, "error");
-      }
-      finally {
+      } finally {
         setIsLoading(false);
         window.location.reload();
       }
-    }
-
-    else {
-
+    } else {
       // alert("Please Login First")
       router.push("/form/signIn");
     }
-
-
   };
-
-
 
   function convertToBangladeshTime(timestamp) {
     const utcTimestamp = new Date(timestamp);
-    console.log(utcTimestamp, "utcTimestamp");
+
     return utcTimestamp.toLocaleString("en-US", {
       timeZone: "Asia/Dhaka",
     });
   }
-
-  console.log(user, "user");
-
-
 
   return (
     <>
@@ -186,8 +129,9 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
                 {[...Array(5)].map((_, i) => (
                   <span
                     key={i}
-                    className={`text-yellow-400 ${i < 4.5 ? "fas fa-star" : "fas fa-star-half-alt"
-                      }`}
+                    className={`text-yellow-400 ${
+                      i < 4.5 ? "fas fa-star" : "fas fa-star-half-alt"
+                    }`}
                   >
                     ★
                   </span>
@@ -230,8 +174,9 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
                       type="button"
                       key={star}
                       onClick={() => setRating(star)}
-                      className={`text-xl ${star <= rating ? "text-yellow-400" : "text-gray-300"
-                        }`}
+                      className={`text-xl ${
+                        star <= rating ? "text-yellow-400" : "text-gray-300"
+                      }`}
                     >
                       ★
                     </button>
@@ -274,16 +219,21 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
                 className="w-20 h-20 rounded-full"
               />
               <div className="flex-1 space-y-2">
-                <h3 className="text-lg font-semibold">{review.profile_names}</h3>
-                <p className="text-sm ">{"Date: " + convertToBangladeshTime(review.created_at)}</p>
+                <h3 className="text-lg font-semibold">
+                  {review.profile_names}
+                </h3>
+                <p className="text-sm ">
+                  {"Date: " + convertToBangladeshTime(review.created_at)}
+                </p>
                 <p className="text-sm ">{review.comment}</p>
 
                 <div className="flex mt-2">
                   {[...Array(review.rating)].map((_, i) => (
                     <span
                       key={i}
-                      className={`text-yellow-400 ${i < review.rating ? "fas fa-star" : "far fa-star"
-                        }`}
+                      className={`text-yellow-400 ${
+                        i < review.rating ? "fas fa-star" : "far fa-star"
+                      }`}
                     >
                       ★
                     </span>
@@ -291,8 +241,6 @@ const ReviewSection = ({ product, product_details, colorAndSize }) => {
                 </div>
               </div>
             </div>
-
-        
           </div>
         ))}
       </div>

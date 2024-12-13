@@ -22,12 +22,7 @@ export default function Footer() {
               Trusted in more than 100 countries &amp; 5 million customers. Have
               any query ?
             </p>
-            {/* <a
-              href="javascript:;"
-              className=" bg-black  text-gray-200   dark:text-white py-3 p-4 rounded-lg hover:bg-indigo-700  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Contact us
-            </a> */}
+         
           </div>
           {/*End Col*/}
           <div className="lg:mx-auto text-left  text-gray-700 dark:text-white ">
@@ -114,33 +109,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-          {/*End Col*/}
-          {/* <div className="lg:mx-auto text-left  text-gray-700 dark:text-white ">
-            <h4 className="text-lg   text-gray-700 dark:text-white font-medium mb-7">Subscribe</h4>
-            <p className="text-sm  text-gray-700 dark:text-white leading-6 mb-7">
-              Subscribe to get the latest news from us
-            </p>
-            <a
-              href="javascript:;"
-              className="flex items-center justify-center gap-2    text-white dark:text-white   lg:mx-0  text-sm font-semibold transition-all duration-500   hover:text-white  bg-black py-3  rounded-lg hover:bg-indigo-700  focus:outline-none  "
-            >
-              Subscribe
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-6 text-gray-700 dark:text-white   "
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-                />
-              </svg>
-            </a>
-          </div> */}
+         
         </div>
         {/*Grid*/}
         <div className="py-7 border-t border-gray-200">
