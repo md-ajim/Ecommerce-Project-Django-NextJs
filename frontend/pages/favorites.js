@@ -10,18 +10,18 @@ export default function FavoritesPage() {
   const router = useRouter();
 
 
-  if (status === "loading") {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Spinner
-          className="mt-10  text-center "
-          size="lg"
-          label="Loading..."
-          color="warning"
-        />
-      </div>
-    );
-  }
+  // if (status === "loading") {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <Spinner
+  //         className="mt-10  text-center "
+  //         size="lg"
+  //         label="Loading..."
+  //         color="warning"
+  //       />
+  //     </div>
+  //   );
+  // }
   return (
     <div className="bg-white dark:bg-gray-900">
       <Favorites />

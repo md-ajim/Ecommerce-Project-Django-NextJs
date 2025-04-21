@@ -205,13 +205,15 @@ WSGI_APPLICATION = "settings.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "a_",
+        "NAME": "db",
         "USER": "root",
-        "PASSWORD": "Admin01780344340@",
+        "PASSWORD": "",
         "HOST": "localhost",  # Or your MySQL server IP
         "PORT": "3306",
     }
 }
+
+
 
 
 # Password validation
@@ -271,9 +273,9 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "azimislam0177@gmail.com"
-EMAIL_HOST_PASSWORD = "nfjn psaq vtre thdh"
-DEFAULT_FROM_EMAIL = "azimulislam017@gmail.com"
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = ""
 
 
 # Default primary key field type
@@ -285,5 +287,5 @@ SITE_ID = 1
 
 
 # settings.py (test mode)
-STRIPE_SECRET_KEY = 'sk_test_51QJquZ13Cc4xkRIKyPvv0lnJX4F0dQfScdm7hrW3kAMtdwpCiEXoVaD7jIKUZeTYEfACSxdK8lKx0UKzUBYAeBPg00Zbihzwup'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51QJquZ13Cc4xkRIKGGPHjGYAVI5yEJQ8eZLiZb3cUtC41CDkOOyFyKqqfD2AllKwbOowPoPhZGecESmcr2VC0zxW00Xxe5BPpi'
+STRIPE_SECRET_KEY = ''
+STRIPE_PUBLISHABLE_KEY = ''

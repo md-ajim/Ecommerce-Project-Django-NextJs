@@ -18,7 +18,7 @@ export default function Products(props) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFavoriteAlertAlready, setIsFavoriteAlertAlready] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Number of items per page
+  const itemsPerPage = 9; // Number of items per page
   const totalPages = Math.ceil(props.products.results.length / itemsPerPage);
   const [alerts, setAlerts] = useState(null); // Store the alerts returned by AlertMassage
   useEffect(() => {
@@ -220,17 +220,18 @@ export default function Products(props) {
         ))}
       </div>
 
-      <div className="container md:flex justify-center items-center mt-10  gap-2 flex-wrap justify-items-center md:space-y-0  space-y-1  ">
-        <Button color="secondary" size="sm" variant="flat" onPress={onPrevious}>
+      <div className="container md:flex justify-center items-center mt-10  gap-2  justify-items-center md:space-y-0  space-y-1  ">
+        <Button color="secondary" className="px-2" size="sm" variant="flat" onPress={onPrevious}>
           Previous
         </Button>
         <Pagination
+          color=" primary"
           page={currentPage}
           onChange={(page) => setCurrentPage(page)}
           isCompact
           total={totalPages}
         />
-        <Button color="secondary" size="sm" variant="flat" onPress={onNext}>
+        <Button className="px-2" color="secondary" size="sm" variant="flat" onPress={onNext}>
           Next
         </Button>
       </div>

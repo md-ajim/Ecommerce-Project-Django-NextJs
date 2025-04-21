@@ -1,14 +1,20 @@
 import { useState, useEffect, use } from "react";
-import Address from "./address";
-import Shipping from "./shipping";
-import Payment from "./payment";
+
 import axios from "axios";
+
 import { useSession } from "next-auth/react";
+
 import { useRouter } from "next/router";
+
 import { useRef } from "react";
+
 import { checkIsAppPPREnabled } from "next/dist/server/lib/experimental/ppr";
+
+import Address from "./address";
+import Payment from "./payment";
+import Shipping from "./shipping";
 const stripe = require("stripe")(
-  "sk_test_51QJquZ13Cc4xkRIKyPvv0lnJX4F0dQfScdm7hrW3kAMtdwpCiEXoVaD7jIKUZeTYEfACSxdK8lKx0UKzUBYAeBPg00Zbihzwup"
+  ""
 );
 
 export default function Checkout() {

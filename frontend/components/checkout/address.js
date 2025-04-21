@@ -65,7 +65,7 @@ export default function Address({ onNext, handleOrderSubmission }) {
       first_name: first_name,
       last_name: last_name,
       apartment: apartment,
-      user: session.user.user_id,
+      user: session?.user?.user_id,
     };
 
     if (session?.user?.user_id !== user?.addresses[0]?.user) {

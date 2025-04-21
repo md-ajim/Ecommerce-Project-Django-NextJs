@@ -8,7 +8,6 @@ from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
 from User.serializers import UserSerializer, LoginSerializer, SocialSerializer
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
@@ -49,29 +48,7 @@ jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
-# @api_view(["POST"])
-# def register_view(request):
-#     serializer = UserSerializer(data=request.data)
-#     if serializer.is_valid():
-#         user = serializer.save()
-#         print(user, "user")
 
-#         # Fixed token creation
-#         token, created = Token.objects.get_or_create(user=user)
-
-#         # Generate activation link
-#         uid = urlsafe_base64_encode(force_bytes(user.pk))
-#         activation_link = f"http://localhost:3000/activate/{uid}/{token.key}/"
-
-#         # Send activation email
-#         send_activation_email(user.username, user.email, activation_link)
-
-#         return Response(
-#             {"detail": "User registered successfully", "token": token.key},
-#             status=status.HTTP_201_CREATED,
-#         )
-#     else:
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -112,31 +89,7 @@ def logIn_view(request):
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class AccountActivationView(APIView):
-#     def get(self, request, uidb64, token):
-#         try:
-#             # Decode UID
-#             uid = force_str(urlsafe_base64_decode(uidb64))
-#             # Retrieve user
-#             user = User.objects.get(pk=uid)
-#         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-#             return HttpResponse("User not found.", status=404)
 
-#         if not Token.objects.filter(user=user).exists():
-#             return HttpResponse("No token found for this user.", status=400)
-
-#         if user.is_active:
-#             return HttpResponse("Activation link has already been used.", status=400)
-
-#         # Check if a Token object for the user already exists
-#         if not Token.objects.filter(user=user).exists():
-#             return HttpResponse("No token found for this user.", status=400)
-
-#         # Activate the user account
-#         user.is_active = True
-#         user.save()
-
-#         return HttpResponse("Your account has been activated successfully!")
 
 
 @api_view(["POST"])
@@ -228,7 +181,7 @@ class SocialLoginView(generics.GenericAPIView):
                 if user:
                     print(f"User authenticated: {user}")
                 else:
-                    print(f"User not authenticated, user is: {user}")
+                    print(f"User not authenticated")
         except AuthForbidden as error:
             print(f"AuthForbidden: {str(error)}")
             return Response(

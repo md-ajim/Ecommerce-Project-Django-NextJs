@@ -188,7 +188,7 @@ export default function Home() {
 
                     <a href="#">
                       <Button
-                        onClick={() => router.push('/search?q=product=all')}
+                        onClick={() => router.push('/search?product=all')}
                         className="rounded-full text-xs md:text-base"
                         color="success"
                         bordered

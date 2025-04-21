@@ -168,17 +168,17 @@ function Favorites() {
   const { status } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
+  // useEffect(() => {
+  //   if (status === 'unauthenticated') {
 
-      router.push('/');
+  //     router.push('/');
 
-    }
-  }, [status]);
+  //   }
+  // }, [status]);
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  // if (status === "loading") {
+  //   return <Loading />;
+  // }
 
 
   return (

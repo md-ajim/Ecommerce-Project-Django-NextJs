@@ -38,7 +38,7 @@ export default function CountryList(props) {
             alt="Venezuela"
             className="w-6 h-6"
             src="https://flagcdn.com/ve.svg"
-          />
+          /> 
         }
       >
         Venezuela
@@ -139,6 +139,7 @@ export default function CountryList(props) {
           />
         }
       >
+        
         Mexico
       </SelectItem>
 

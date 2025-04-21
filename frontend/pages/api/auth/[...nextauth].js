@@ -117,9 +117,6 @@ export const authOptions = {
     },
 
     async jwt({ token, user, account }) {
-      console.log(user, 'user-jwt')
-      console.log(account, 'account-jwt')
-      console.log(token, 'token-jwt')
       if (account && user) {
         token.accessToken = account.meta?.access || user?.access; // Add access token to JWT token
         token.refreshToken = account.meta?.refresh || user?.refresh; // Add refresh token to JWT token

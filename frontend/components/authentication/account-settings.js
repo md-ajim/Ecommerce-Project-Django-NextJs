@@ -255,13 +255,13 @@ export default function EditProfile() {
     }
   };
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
+  // useEffect(() => {
+  //   if (status === 'unauthenticated') {
 
-      router.push('/');
+  //     router.push('/');
 
-    }
-  }, [status]);
+  //   }
+  // }, [status]);
 
   if (status === "loading") {
     return <Loading />;
@@ -273,7 +273,7 @@ export default function EditProfile() {
 
 
 
-  if (status === "authenticated") {
+  // if (status === "authenticated") {
     return (
       <section className="dark:bg-black bg-white dark:text-white" >
         <div className="container mb-6 py-5 px-4 dark:bg-black text-black">
@@ -695,7 +695,7 @@ export default function EditProfile() {
         </div>
       </section>
     );
-  }
+  // }
 
 
 

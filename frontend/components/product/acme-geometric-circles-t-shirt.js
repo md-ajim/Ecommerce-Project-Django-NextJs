@@ -444,7 +444,8 @@ const AcmeGeometricCirclesTShirtPage = ({
     }
   }, [q]);
 
-  console.log(q, "q");
+
+  console.log(product_details , 'product_details');
 
   return (
     <>
@@ -728,7 +729,15 @@ const AcmeGeometricCirclesTShirtPage = ({
                     <p className="font-medium text-lg leading-8  text-gray-700 dark:text-white mb-4">
                       Bag size
                     </p>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+                 {
+                     product_details?.[0].size ==='' ? (
+                      
+                      null
+                 
+
+                     ):(
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                       <button
                         onMouseEnter={() => setSize_selected("SX")}
                         onMouseLeave={toggleSize}
@@ -808,6 +817,10 @@ const AcmeGeometricCirclesTShirtPage = ({
                         XXXL
                       </button>
                     </div>
+                     )
+
+                 }
+
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-1 gap-3 mb-8">
