@@ -7,7 +7,7 @@ A modern, scalable, and SEO-friendly e-commerce platform built with **Django RES
 - **Dynamic Product Filtering**: Advanced product filtering and search using **Django Filter**.
 - **Product Management**: CRUD (Create, Read, Update, Delete) operations for managing products (admin panel powered by Django).
 - **Order Management & Reporting**:  View detailed sales and order reports.
-- **Shopping Cart & Checkout**: Fully functional shopping cart with dynamic price calculation, checkout, and payment gateway integration (e.g., **Stripe** or **PayPal**).
+- **Shopping Cart & Checkout**: Fully functional shopping cart with dynamic price calculation, checkout, and payment gateway integration (**Stripe**).
 - **SEO Optimized**: Server-side rendering (SSR) and static site generation (SSG) with **Next.js** for better search engine visibility.
 - **Responsive Design**: Fully mobile-responsive UI built with **Tailwind CSS**.
 - **API-Driven Backend**: Robust and secure API layer powered by **Django REST Framework**.
