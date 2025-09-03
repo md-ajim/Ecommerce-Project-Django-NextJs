@@ -1,7 +1,36 @@
-composer.phar
-/vendor/
+# Node modules
+frontend/node_modules/
 
-# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
-# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
-# composer.lock
+# Build folders
+frontend/.next/
+frontend/.next/cache/
+frontend/out/
+backend/staticfiles/
 
+# Env files
+
+.env.local
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+backend/.env
+backend/.env.production
+
+# Python
+backend/__pycache__/
+*.py[cod]
+
+# Logs
+*.log
+npm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE/editor folders
+.vscode/
+.idea/
+
+# Others
+frontend/.turbo/
