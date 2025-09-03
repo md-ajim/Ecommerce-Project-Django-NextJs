@@ -1,4 +1,3 @@
-
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
@@ -9,11 +8,10 @@ import Carousel from "../components/product/Carousel";
 import AlertMassage from "../components/alert/alertMassage";
 import { useSession } from "next-auth/react";
 
-
 export default function Home() {
   // Ref for the scrollable container
   const scrollRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false); // Track hover state
+  const [isHovered, setIsHovered] = useState(false);
   const [data, setData] = useState([]);
   const [mainCard, setMainCard] = useState({});
   const [similarCards, setSimilarCards] = useState([]);
@@ -23,7 +21,7 @@ export default function Home() {
   const [favoriteId, setFavoriteId] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isFavoriteAlertAlready, setIsFavoriteAlertAlready] = useState(false);
-  const [alerts, setAlerts] = useState(null); // Store the alerts returned by AlertMassage
+  const [alerts, setAlerts] = useState(null);
 
   useEffect(() => {
     const get_favorite = async () => {
@@ -38,7 +36,6 @@ export default function Home() {
             const data = res.data.results.map((item) => {
               return item.Product;
             });
-
             setFavoriteId(data);
           })
           .catch((err) => {
@@ -71,8 +68,6 @@ export default function Home() {
     };
 
     if (!favoriteId.includes(Product)) {
-
-      // alert("Added to favorites");
       try {
         const response = await axios
           .post("http://127.0.0.1:8000/api/favorite/", data, {
@@ -90,11 +85,9 @@ export default function Home() {
       } catch (error) {
         console.error(error, "error");
       } finally {
-        // window.location.reload();
         console.log("reload");
       }
     } else {
-      // alert("already added to favorites");
       setIsFavoriteAlertAlready(true);
     }
   };
@@ -106,7 +99,7 @@ export default function Home() {
         const similarCardsData = response?.data?.results.slice(0, 2);
         setSimilarCards(similarCardsData);
         const data = response?.data?.results.slice(2, 50);
-        setData(data)
+        setData(data);
       } catch (error) {
         console.error(error);
       }
@@ -115,27 +108,21 @@ export default function Home() {
 
     const scrollContainer = scrollRef.current;
 
-    // Function to handle the scrolling animation
     const scrollStep = () => {
       if (scrollContainer && !isHovered) {
         if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-          // Reset scroll to the start (for looping)
           scrollContainer.scrollLeft = 0;
         } else {
-          scrollContainer.scrollLeft += 1; // Adjust the step size for speed
+          scrollContainer.scrollLeft += 1;
         }
       }
     };
 
-    // Create an interval for the scrolling effect
-    const scrollInterval = setInterval(scrollStep, 10); // Lower values make it faster
-
-    // Clear the interval when component unmounts
+    const scrollInterval = setInterval(scrollStep, 10);
     return () => {
       clearInterval(scrollInterval);
     };
   }, [isHovered]);
-
 
   useEffect(() => {
     const loadAlerts = async () => {
@@ -146,63 +133,41 @@ export default function Home() {
     loadAlerts();
   }, [setIsFavorite, setIsFavoriteAlertAlready]);
 
-
-
-
   const interval = setInterval(() => {
-
     if (isFavorite) {
-      // setIsFavorite(false);
-      // window.location.reload();
     }
     if (isFavoriteAlertAlready) {
-      // setIsFavoriteAlertAlready(false);
-      // window.location.reload();
     }
     clearInterval(interval);
-
   }, 3000);
 
-
-  console.log(similarCards, "similarCards");
-
-
-
   return (
-    <>
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {alerts && isFavorite && alerts.favoritesAlertAdd}
       {alerts && isFavoriteAlertAlready && alerts.favoritesAlertAlready}
+      
       {/* Main section content */}
-      <section className="dark:bg-black/85  " >
-        <div className="container px-4 md:px-0 lg:px-0 mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <section className="py-8">
+        <div className="container px-4 mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Main Large Card */}
-            <div className="md:col-span-2 w-full hover:border scale-100 border-green-600 bg-white dark:bg-black rounded-2xl">
-              <div className="flex-col    w-full mx-auto justify-center items-center rounded-2xl hover:box-border">
-                <div className="w-full h-full  flex justify-center items-center justify-items-center relative mx-auto hover:box-border align-middle rounded-2xl">
-
-                  <Carousel />
-
-                  <div className="flex justify-between backdrop-blur-md  text-black bg-white/10 text-wrap border-white/20 border-1 overflow-hidden absolute rounded-full text-center items-center p-2 left-3 bottom-3 md:w-[calc(135px_-_10px)] shadow-small z-10  ">
-
-                    <a href="#">
-                      <Button
-                        onClick={() => router.push('/search?product=all')}
-                        className="rounded-full text-xs md:text-base"
-                        color="success"
-                        bordered
-                      >
-                        Shop Now
-                      </Button>
-                    </a>
-                  </div>
+            <div className="md:col-span-2 w-full bg-white dark:bg-gray-850 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+              <div className="w-full h-full flex justify-center items-center relative">
+                <Carousel />
+                <div className="absolute left-6 bottom-6">
+                  <Button
+                    onClick={() => router.push('/search?product=all')}
+                    className="rounded-full px-6 py-4 font-medium bg-gradient-to-r from-green-500 to-teal-500 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    size="lg"
+                  >
+                    Shop Now
+                  </Button>
                 </div>
               </div>
             </div>
 
             {/* Smaller Cards */}
-            <div className="flex-col w-full h-auto mx-auto justify-center space-y-4 items-center relative">
+            <div className="flex flex-col w-full h-auto space-y-6">
               {similarCards.map((card, index) => (
                 <div
                   key={index}
@@ -211,51 +176,52 @@ export default function Home() {
                       `/product_id?q=${card.product_id}&name=${card.name}&price=${card.price}&id=${card.id}`
                     )
                   }
-                  className="relative scale-100 flex  w-full hover:border rounded-2xl border-green-600 p-6  bg-white dark:bg-black"
+                  className="relative group flex w-full rounded-2xl overflow-hidden bg-white dark:bg-gray-850 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-100 dark:border-gray-700"
                 >
-                  <img
-                    className="w-full h-[200px] md:h-[275px] transition-transform  rounded-2xl duration-300 hover:scale-110"
-                    src={card?.product_image}
-                  />
-
-                  <div className="absolute top-2 right-5">
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevents parent click event
-                        session ? handleClickFavorite({
-                          Product: card?.id,
-                          Product_Name: card?.product_card_name,
-                          Product_Image: card?.product_image,
-                          Product_url: card?.product_url,
-                          Stock_Status: card?.stock_quantity,
-                          Discount_Price: card?.discount_price,
-                          Product_Price: card?.price,
-                        }) : router.push("form/signIn");
-                      }}
-
-                      isIconOnly
-                      color="danger"
-                      aria-label="Like"
-                    >
-                      <HeartIcon />
-                    </Button>
-                  </div>
-
-                  <div className="flex justify-between backdrop-blur-md text-black bg-white/10  border-white/20 border-1 overflow-hidden absolute rounded-full text-center items-center right-10   bottom-6 p-1 w-[calc(250px_-_6px)] md:w-[calc(350px_-_8px)] shadow-small z-10">
-                    <a href="#">
-                      <p className=" text-xs text-wrap md:text-xs">
-                        {card?.product_card_name}
-                      </p>
-                    </a>
-                    <a href="#">
+                  <div className="relative w-2/5 overflow-hidden">
+                    <img
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                      src={card?.product_image}
+                      alt={card?.product_card_name}
+                    />
+                    <div className="absolute top-3 right-3">
                       <Button
-                        className="rounded-full  text-xs md:text-xs"
-                        color="success"
-                        bordered
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          session ? handleClickFavorite({
+                            Product: card?.id,
+                            Product_Name: card?.product_card_name,
+                            Product_Image: card?.product_image,
+                            Product_url: card?.product_url,
+                            Stock_Status: card?.stock_quantity,
+                            Discount_Price: card?.discount_price,
+                            Product_Price: card?.price,
+                          }) : router.push("form/signIn");
+                        }}
+                        isIconOnly
+                        className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
+                        aria-label="Like"
                       >
-                        {card?.price}
+                        <HeartIcon className={favoriteId.includes(card?.id) ? "fill-red-500" : ""} />
                       </Button>
-                    </a>
+                    </div>
+                  </div>
+                  
+                  <div className="w-3/5 p-4 flex flex-col justify-between">
+                    <h3 className="font-medium text-gray-800 dark:text-gray-200 line-clamp-2">
+                      {card?.product_card_name}
+                    </h3>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {card?.price}
+                      </span>
+                      <Button
+                        className="rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white transition-colors"
+                        size="sm"
+                      >
+                        View
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -265,12 +231,13 @@ export default function Home() {
       </section>
 
       {/* Bottom Scroll Section */}
-      <section className="dark:bg-black/85">
+      <section className="py-8 bg-white dark:bg-gray-850 border-t border-b border-gray-100 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-gray-200">Featured Products</h2>
         <div
           ref={scrollRef}
-          className="w-auto h-auto mx-auto overflow-x-scroll whitespace-nowrap py-4"
-          onMouseEnter={() => setIsHovered(true)} // Pause scrolling on hover
-          onMouseLeave={() => setIsHovered(false)} // Resume scrolling on mouse leave
+          className="w-full overflow-x-auto whitespace-nowrap py-4 scrollbar-hide"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {data?.map((i, index) => (
             <div
@@ -281,63 +248,57 @@ export default function Home() {
                 )
               }
               id={`card-${index}`}
-              style={{ display: "inline-block" }}
-              className="relative inline-block mx-2 hover:border rounded-2xl border-green-600 p-4 bg-white dark:bg-black"
+              className="inline-block mx-3 w-64 rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group"
             >
-              <Link
-                href={`/product_id?q=${i.product_id}&name=${i.name}&price=${i.price}&id=${i.id}`}
-              >
+              <div className="relative overflow-hidden">
                 <img
-                  className="w-[250px] h-[150px] md:w-[275px] md:h-[275px] rounded-2xl transition-transform duration-300 hover:scale-110"
+                  className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
                   src={i?.product_image}
-                  alt="T-shirt"
+                  alt={i?.product_card_name}
                 />
-              </Link>
-
-              <div className="absolute top-5 right-5">
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevents parent click event
-
-                    session ? handleClickFavorite({
-                      Product: i?.id,
-                      Product_Name: i?.product_card_name,
-                      Product_Image: i?.product_image,
-                      Product_url: i?.product_url,
-                      Stock_Status: i?.stock_quantity,
-                      Discount_Price: i?.discount_price,
-                      Product_Price: i?.price,
-                    }) : router.push("form/signIn");
-
-                  }}
-                  isIconOnly
-                  color="danger"
-                  aria-label="Like"
-                >
-                  <HeartIcon />
-                </Button>
-              </div>
-
-              <div className="flex justify-between backdrop-blur-md text-black bg-white/10  border-white/20 border-1 overflow-hidden absolute rounded-full text-center items-center right-6   bottom-2 p-1 w-[calc(250px_-_6px)] md:w-[calc(270px_-_6px)] shadow-small z-10">
-                <a href="#">
-                  <p className="text-xs md:text-xs text-wrap">
-                    {i?.product_card_name}
-                  </p>
-                </a>
-                <a href="#">
+                <div className="absolute top-3 right-3">
                   <Button
-                    className="rounded-full text-xs md:text-base"
-                    color="success"
-                    bordered
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      session ? handleClickFavorite({
+                        Product: i?.id,
+                        Product_Name: i?.product_card_name,
+                        Product_Image: i?.product_image,
+                        Product_url: i?.product_url,
+                        Stock_Status: i?.stock_quantity,
+                        Discount_Price: i?.discount_price,
+                        Product_Price: i?.price,
+                      }) : router.push("form/signIn");
+                    }}
+                    isIconOnly
+                    className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
+                    aria-label="Like"
                   >
-                    {i?.price}
+                    <HeartIcon className={favoriteId.includes(i?.id) ? "fill-red-500" : ""} />
                   </Button>
-                </a>
+                </div>
+              </div>
+              
+              <div className="p-4">
+                <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2 line-clamp-2">
+                  {i?.product_card_name}
+                </h3>
+                <div className="flex items-center justify-between">
+                  <span className="text-xl font-bold text-green-600 dark:text-green-400">
+                    {i?.price}
+                  </span>
+                  <Button
+                    className="rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white transition-colors"
+                    size="sm"
+                  >
+                    View Details
+                  </Button>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }

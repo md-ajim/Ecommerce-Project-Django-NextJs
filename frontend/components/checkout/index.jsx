@@ -35,66 +35,58 @@ const CheckoutButton = ({ amount, orderId, shipping_id }) => {
 
       const data_display = [];
 
-
       if (filter_orderId.length > 1) {
-        
-      filter_orderId?.forEach((orderItem) => {
-        orderItem?.items?.forEach((item) => {
-          item?.cart_item?.forEach((cartItem) => {
-            cartItem?.product?.product_details?.forEach((details) => {
-              data_display.push({
-                items: [
-                  {
-                    product: {
-                      name: cartItem.product.product_card_name,
-                      description: details.description || cartItem.product.name,
+        filter_orderId?.forEach((orderItem) => {
+          orderItem?.items?.forEach((item) => {
+            item?.cart_item?.forEach((cartItem) => {
+              cartItem?.product?.product_details?.forEach((details) => {
+                data_display.push({
+                  items: [
+                    {
+                      product: {
+                        name: cartItem.product.product_card_name,
+                        description:
+                          details.description || cartItem.product.name,
+                        quantity: cartItem.quantity,
+                        images: [cartItem.product.product_image],
+                        price: cartItem.product.discount_price,
+                        currency: "usd",
+                        metadata: { size: details.size, color: cartItem.color },
+                      },
                       quantity: cartItem.quantity,
-                      images: [cartItem.product.product_image],
-                      price: cartItem.product.discount_price,
-                      currency: "usd",
-                      metadata: { size: details.size, color: cartItem.color },
                     },
-                    quantity: cartItem.quantity,
-                  },
-                ],
+                  ],
+                });
               });
             });
           });
         });
-      });
-      }
-      else{
-      filter_orderId?.forEach((orderItem) => {
-        orderItem?.items?.forEach((item) => {
-          item?.products?.forEach((product) => {
-            product?.product_details?.forEach((details) => {
-              data_display.push({
-                items: [
-                  {
-                    product: {
-                      name: product.product_card_name,
-                      description: details.description || product.name,
-                      quantity: product.quantity,
-                      images: [product.product_image],
-                      price: product.discount_price,
-                      currency: "usd",
-                      metadata: { size: details.size, color: details.color },
+      } else {
+        filter_orderId?.forEach((orderItem) => {
+          orderItem?.items?.forEach((item) => {
+            item?.products?.forEach((product) => {
+              product?.product_details?.forEach((details) => {
+                data_display.push({
+                  items: [
+                    {
+                      product: {
+                        name: product.product_card_name,
+                        description: details.description || product.name,
+                        quantity: product.quantity,
+                        images: [product.product_image],
+                        price: product.discount_price,
+                        currency: "usd",
+                        metadata: { size: details.size, color: details.color },
+                      },
+                      quantity: product.stock_quantity,
                     },
-                    quantity: product.stock_quantity,
-                  },
-                ],
+                  ],
+                });
               });
             });
           });
         });
-      });
-
       }
-
-
-
-
-
 
       setOrder_data(data_display);
     } catch (error) {
@@ -167,11 +159,6 @@ const CheckoutButton = ({ amount, orderId, shipping_id }) => {
         const input = convertOutputToInput(response.data);
         const { products, customerEmail, taxRateId, metadata } = input;
 
-        console.log("input", input);
-        console.log("products", products);
-        console.log("customerEmail", customerEmail);
-        console.log("taxRateId", taxRateId);
-        console.log("metadata", metadata);
 
         const stripe = await asyncStripe;
 
@@ -212,7 +199,6 @@ const CheckoutButton = ({ amount, orderId, shipping_id }) => {
     }
   };
 
-  console.log(order_data, "order_data");
 
   return (
     <button

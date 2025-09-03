@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+
 import axios from "axios";
+
 import { useSession } from "next-auth/react";
+
 import { useRouter } from "next/router";
 
 import CheckoutButton from "../checkout/index";
@@ -41,8 +44,6 @@ export default function Payment({
 
     getUser();
   }, [session, session?.accessToken]);
-
-
 
   return (
     <>
@@ -88,64 +89,6 @@ export default function Payment({
         </div>
       </div>
       <h2 className="text-2xl font-bold mb-4">Payment</h2>
-      {/* <div className=" bg-transparent  border-gray-700   border  p-6 rounded space-y-4">
-        <div className="space-y-2">
-          <label
-            className="block text-white font-semibold"
-            htmlFor="cardNumber"
-          >
-            Card Number
-          </label>
-          <input
-            id="cardNumber"
-            type="text"
-            placeholder="1234 5678 9012 3456"
-            className="w-full bg-black p-3 rounded border border-gray-600 focus:border-blue-500 text-white"
-          />
-        </div>
-        <div className="space-y-2">
-          <label
-            className="block text-white font-semibold"
-            htmlFor="nameOnCard"
-          >
-            Name on Card
-          </label>
-          <input
-            id="nameOnCard"
-            type="text"
-            placeholder="Full Name"
-            className="w-full bg-black p-3 rounded border border-gray-600 focus:border-blue-500 text-white"
-          />
-        </div>
-        <div className="flex space-x-4">
-          <div className="w-1/2 space-y-2">
-            <label
-              className="block text-white font-semibold"
-              htmlFor="expiryDate"
-            >
-              Expiry Date
-            </label>
-            <input
-              id="expiryDate"
-              type="text"
-              placeholder="MM/YY"
-              className="w-full bg-black p-3 rounded border border-gray-600 focus:border-blue-500 text-white"
-            />
-          </div>
-          <div className="w-1/2 space-y-2">
-            <label className="block text-white font-semibold" htmlFor="cvv">
-              CVV
-            </label>
-            <input
-              id="cvv"
-              type="text"
-              placeholder="123"
-              className="w-full bg-black p-3 rounded border border-gray-600 focus:border-blue-500 text-white"
-            />
-          </div>
-        </div>
-
-      </div> */}
 
       {/* Complete Order Button */}
       <div className="mt-8 flex items-center justify-between">
@@ -157,8 +100,6 @@ export default function Payment({
           orderId={orderId}
           amount={totalPrice}
         />
-
-  
       </div>
     </>
   );
